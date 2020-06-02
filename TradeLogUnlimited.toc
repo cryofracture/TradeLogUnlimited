@@ -1,0 +1,15 @@
+﻿## Interface: 80300
+## LoadOnDemand: 0
+## Title: TradeLog2
+## Notes: Recent trades, trade history, announcing trades of items and gold.
+## SavedVariablesPerCharacter: TradeLog_TradesHistory, TradeLog_Announce_Checked, TradeLog_AnnounceChannel
+
+Libs\LibDBIcon-1.0.xml
+
+localization-enUS.lua
+localization-zhCN.lua
+localization-zhTW.lua
+localization-koKR.lua
+TradeLogUnlimited.lua
+RecentTradeFrame.xml
+TradeLogUnlimitedFrame.xml
