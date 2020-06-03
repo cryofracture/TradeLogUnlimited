@@ -37,9 +37,9 @@ function RecentTradeFrame_UpdateList(name)
 	local now = date("%Y-%m-%d %H:%M:%S");
 	local _, _, y2, m2, d2, h2, mi2 = string.find(now, "(%d+)-(%d+)-(%d+) (%d+):(%d+)")
 
-	if TradeLog_TradesHistory then
-		for j = #TradeLog_TradesHistory, 1, -1 do
-			local trade = TradeLog_TradesHistory[j]
+	if TradeLogUnlimited_TradesHistory then
+		for j = #TradeLogUnlimited_TradesHistory, 1, -1 do
+			local trade = TradeLogUnlimited_TradesHistory[j]
 			if trade.who == name and trade.result == "complete" then
 				local _,_,year,month,day,hour,min = string.find(trade.when, "(%d+)-(%d+)-(%d+) (%d+):(%d+)")
 				if(not year) then
@@ -51,8 +51,8 @@ function RecentTradeFrame_UpdateList(name)
 					local text = timeLong.." "..trade.where
 					i = i+1;
 
-					local playerList = TradeLog_GetTradeList( trade.playerMoney, trade.playerItems, trade.targetItems[7], TradeLog_GetMoneyPlainText, true)
-					local targetList = TradeLog_GetTradeList( trade.targetMoney, trade.targetItems, trade.playerItems[7], TradeLog_GetMoneyPlainText, true)
+					local playerList = TradeLogUnlimited_GetTradeList( trade.playerMoney, trade.playerItems, trade.targetItems[7], TradeLogUnlimited_GetMoneyPlainText, true)
+					local targetList = TradeLogUnlimited_GetTradeList( trade.targetMoney, trade.targetItems, trade.playerItems[7], TradeLogUnlimited_GetMoneyPlainText, true)
 
 					if(#playerList==0 and #targetList==0) then
 						text = text.."\n|cffffffff"..NONE.."|r"

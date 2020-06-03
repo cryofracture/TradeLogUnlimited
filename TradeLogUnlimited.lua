@@ -1,21 +1,21 @@
 SLASH_TRADELOGSHOW1 = "/tbtdebug";
 SlashCmdList["TRADELOGSHOW"] = function(msg)
 	DEFAULT_CHAT_FRAME:AddMessage("(debug)TradeId-"..msg.." |Htradelog:"..msg.."|h[DETAIL]|h:");
-	TBT_CURRENT_TRADE = TradeLog_TradesHistory[0+msg];
-	TradeLog_OutputLog();
-	table.remove(TradeLog_TradesHistory, getn(TradeLog_TradesHistory));
+	TBT_CURRENT_TRADE = TradeLogUnlimited_TradesHistory[0+msg];
+	TradeLogUnlimited_OutputLog();
+	table.remove(TradeLogUnlimited_TradesHistory, getn(TradeLogUnlimited_TradesHistory));
 end
 
 TBT_CURRENT_TRADE = nil;
 
 local function curr()
 	if(not TBT_CURRENT_TRADE) then
-		TBT_CURRENT_TRADE = TradeLog_CreateNewTrade();
+		TBT_CURRENT_TRADE = TradeLogUnlimited_CreateNewTrade();
 	end
 	return TBT_CURRENT_TRADE;
 end
 
-function TradeLog_CreateNewTrade() 
+function TradeLogUnlimited_CreateNewTrade() 
 	local trade = {
 		id = nil,
 		when = nil,
@@ -34,7 +34,7 @@ function TradeLog_CreateNewTrade()
 	return trade;
 end
 
-function TradeLog_OnLoad(self)
+function TradeLogUnlimited_OnLoad(self)
 	local menu = CreateFrame("Frame", "TBT_AnnounceChannelDropDown", TradeFrame, "UIDropDownMenuTemplate");
 	-- menu:SetPoint("BOTTOMLEFT", "TradeFrame", "BOTTOMLEFT", 80, 49);
 	UIDropDownMenu_SetWidth(TBT_AnnounceChannelDropDown, 62, 3);
@@ -46,7 +46,7 @@ function TradeLog_OnLoad(self)
 	cb:SetHeight(26);
 	TBT_AnnounceCBText:SetText(TRADE_LOG_ANNOUNCE);
 	cb.tooltipText = TRADE_LOG_ANNOUNCE_TIP;
-	cb:SetScript("OnClick", function(self) TradeLog_Announce_Checked = self:GetChecked()and true or false; end);
+	cb:SetScript("OnClick", function(self) TradeLogUnlimited_Announce_Checked = self:GetChecked()and true or false; end);
 
     menu:SetPoint('BOTTOMLEFT', cb, 50, -3)
 
@@ -64,51 +64,51 @@ function TradeLog_OnLoad(self)
 	self:RegisterEvent("UI_ERROR_MESSAGE");
 end
 
-function TradeLog_OnEvent(self, event, arg1, arg2, ...)
+function TradeLogUnlimited_OnEvent(self, event, arg1, arg2, ...)
 	if (event=="UI_ERROR_MESSAGE") then
 		if(arg2==ERR_TRADE_BAG_FULL or arg2==ERR_TRADE_MAX_COUNT_EXCEEDED or arg2==ERR_TRADE_TARGET_BAG_FULL or arg2==ERR_TRADE_TARGET_MAX_COUNT_EXCEEDED) then
 			curr().result = "error";
 			curr().reason=arg2;
-			TradeLog_LogTradeAndReset();
+			TradeLogUnlimited_LogTradeAndReset();
 		elseif (arg2==ERR_TRADE_TARGET_DEAD or arg2==ERR_TRADE_TOO_FAR) then
 			DEFAULT_CHAT_FRAME:AddMessage(arg2, 1, 0.2, 0.2);
 		end
 
 	elseif (event=="UI_INFO_MESSAGE" and ( arg2==ERR_TRADE_CANCELLED or arg2==ERR_TRADE_COMPLETE) ) then
 		curr().result = (arg2==ERR_TRADE_CANCELLED) and "cancelled" or "complete"
-		TradeLog_LogTradeAndReset();
+		TradeLogUnlimited_LogTradeAndReset();
 
 	elseif (event=="TRADE_CLOSED" or event=="TRADE_REQUEST_CANCEL" or event == "TRADE_SHOW") then
 		table.insert(curr().events, event);
 	
 	elseif (event=="TRADE_PLAYER_ITEM_CHANGED") then
-		TradeLog_UpdateItemInfo(arg1, "Player", curr().playerItems);
+		TradeLogUnlimited_UpdateItemInfo(arg1, "Player", curr().playerItems);
 	
 	elseif (event=="TRADE_TARGET_ITEM_CHANGED") then
-		TradeLog_UpdateItemInfo(arg1, "Target", curr().targetItems);
+		TradeLogUnlimited_UpdateItemInfo(arg1, "Target", curr().targetItems);
 	
 	elseif (event=="TRADE_MONEY_CHANGED") then
-		TradeLog_UpdateMoney();
+		TradeLogUnlimited_UpdateMoney();
 	
 	elseif (event=="TRADE_ACCEPT_UPDATE") then
 		for i = 1, 7 do
-			TradeLog_UpdateItemInfo(i, "Player", curr().playerItems);
-			TradeLog_UpdateItemInfo(i, "Target", curr().targetItems);
+			TradeLogUnlimited_UpdateItemInfo(i, "Player", curr().playerItems);
+			TradeLogUnlimited_UpdateItemInfo(i, "Target", curr().targetItems);
 		end
-		TradeLog_UpdateMoney();
+		TradeLogUnlimited_UpdateMoney();
 	elseif (event=="VARIABLES_LOADED") then
-		TradeLog_TradesHistory = TradeLog_TradesHistory or {};
+		TradeLogUnlimited_TradesHistory = TradeLogUnlimited_TradesHistory or {};
 
-		for k, v in ipairs(TradeLog_TradesHistory) do
+		for k, v in ipairs(TradeLogUnlimited_TradesHistory) do
 			v.id = v.id or k 
 		end
 
-		TradeLog_AnnounceChannel = TradeLog_AnnounceChannel or "WHISPER";
+		TradeLogUnlimited_AnnounceChannel = TradeLogUnlimited_AnnounceChannel or "WHISPER";
 
 		UIDropDownMenu_Initialize(TBT_AnnounceChannelDropDown, TBT_AnnounceChannelDropDown_Initialize);
-		UIDropDownMenu_SetSelectedValue(TBT_AnnounceChannelDropDown, TradeLog_AnnounceChannel);
+		UIDropDownMenu_SetSelectedValue(TBT_AnnounceChannelDropDown, TradeLogUnlimited_AnnounceChannel);
 
-		if(TradeLog_Announce_Checked) then TBT_AnnounceCB:SetChecked(1); end;
+		if(TradeLogUnlimited_Announce_Checked) then TBT_AnnounceCB:SetChecked(1); end;
 
         if TradeLogFrame_CreateMinimapButton then TradeLogFrame_CreateMinimapButton() end
 	end
@@ -125,7 +125,7 @@ function TradeLog_OnEvent(self, event, arg1, arg2, ...)
 	end
 end
 
-function TradeLog_UpdateItemInfo(id, unit, items)
+function TradeLogUnlimited_UpdateItemInfo(id, unit, items)
 	local funcInfo = getglobal("GetTrade"..unit.."ItemInfo");
 	local funcLink = getglobal("GetTrade"..unit.."ItemLink");
 
@@ -154,12 +154,12 @@ function TradeLog_UpdateItemInfo(id, unit, items)
 	}
 end
 
-function TradeLog_UpdateMoney()
+function TradeLogUnlimited_UpdateMoney()
 	curr().playerMoney = GetPlayerTradeMoney();
 	curr().targetMoney = GetTargetTradeMoney();
 end
 
-function TradeLog_AnalyseCancelReason()
+function TradeLogUnlimited_AnalyseCancelReason()
 	local reason = "unknown"; --should be unknown only when no trade window opened.
 	local e = curr().events;
 	local n = table.getn(e);
@@ -183,15 +183,15 @@ function TradeLog_AnalyseCancelReason()
 	return reason;
 end
 
-function TradeLog_LogTradeAndReset()
+function TradeLogUnlimited_LogTradeAndReset()
 	curr().when = date("%Y-%m-%d %H:%M:%S");
 	curr().where = GetRealZoneText();
 	if( curr().result == "cancelled" ) then
-		curr().reason = TradeLog_AnalyseCancelReason();
+		curr().reason = TradeLogUnlimited_AnalyseCancelReason();
 	elseif( curr().result == "error" ) then
 		curr().reason = curr().reason;
 	end
-	TradeLog_OutputLog();
+	TradeLogUnlimited_OutputLog();
 	TBT_CURRENT_TRADE = nil;
 end
 
@@ -203,7 +203,7 @@ function TBT_nextId(tab)
 	return n+1;
 end;
 
-function TradeLog_GetTradeList(money, items, enchant, moneyText, countOnly)
+function TradeLogUnlimited_GetTradeList(money, items, enchant, moneyText, countOnly)
 	local list = {}
 	if(money > 0) then
 		table.insert( list, moneyText(money) );
@@ -231,7 +231,7 @@ function TradeLog_GetTradeList(money, items, enchant, moneyText, countOnly)
 end
 
 local function SendChat(msg, name)
-	local channel = TradeLog_FindAnnounceChannel(TradeLog_AnnounceChannel);
+	local channel = TradeLogUnlimited_FindAnnounceChannel(TradeLogUnlimited_AnnounceChannel);
 	if(channel=="WHISPER")then
 		SendChatMessage(msg,channel,nil,name);
 	else
@@ -239,7 +239,7 @@ local function SendChat(msg, name)
 	end
 end
 
-function TradeLog_FindAnnounceChannel(channel)
+function TradeLogUnlimited_FindAnnounceChannel(channel)
 	--channel should be WHISPER, RAID, PARTY, SAY, YELL
 	if(channel=="RAID") then
 		if (UnitInRaid("player")) then 
@@ -259,11 +259,11 @@ function TradeLog_FindAnnounceChannel(channel)
 	return channel;
 end
 
-function TradeLog_Output(trade, func, plain)
+function TradeLogUnlimited_Output(trade, func, plain)
 	local whoLink = plain and trade.who or "|Hplayer:"..trade.who.."|h"..trade.who.."|h";
 	if(trade.result == "complete") then
-		local playerList = TradeLog_GetTradeList( trade.playerMoney, trade.playerItems, trade.targetItems[7], plain and TradeLog_GetMoneyPlainText or TradeLog_GetMoneyColorText)
-		local targetList = TradeLog_GetTradeList( trade.targetMoney, trade.targetItems, trade.playerItems[7], plain and TradeLog_GetMoneyPlainText or TradeLog_GetMoneyColorText)
+		local playerList = TradeLogUnlimited_GetTradeList( trade.playerMoney, trade.playerItems, trade.targetItems[7], plain and TradeLogUnlimited_GetMoneyPlainText or TradeLogUnlimited_GetMoneyColorText)
+		local targetList = TradeLogUnlimited_GetTradeList( trade.targetMoney, trade.targetItems, trade.playerItems[7], plain and TradeLogUnlimited_GetMoneyPlainText or TradeLogUnlimited_GetMoneyColorText)
 
 		if(#playerList==0 and #targetList==0) then
 			func(string.gsub(TRADE_LOG_SUCCESS_NO_EXCHANGE, "%%t", whoLink), 1, 1, 0);
@@ -337,7 +337,7 @@ function TradeLog_Output(trade, func, plain)
 
 end
 
-function TradeLog_OutputLog()
+function TradeLogUnlimited_OutputLog()
 	local numPlayer, numTarget, enPlayer, enTarget, msg;
 	if(not curr().who) then
 		--never show the trade window
@@ -348,17 +348,17 @@ function TradeLog_OutputLog()
 		end
 		return;
 	end
-	curr().id = TBT_nextId(TradeLog_TradesHistory);
-	table.insert(TradeLog_TradesHistory, curr());
+	curr().id = TBT_nextId(TradeLogUnlimited_TradesHistory);
+	table.insert(TradeLogUnlimited_TradesHistory, curr());
 	if(type(TradeListScrollFrame_Update)=="function") then TradeListScrollFrame_Update(); end
 
-	TradeLog_Output(curr(), function(m, r, g, b) DEFAULT_CHAT_FRAME:AddMessage(m, r, g, b) end);
+	TradeLogUnlimited_Output(curr(), function(m, r, g, b) DEFAULT_CHAT_FRAME:AddMessage(m, r, g, b) end);
 	if(TBT_AnnounceCB:GetChecked()) then
-		TradeLog_Output(curr(), function(m) SendChat(m, curr().who) end, true);
+		TradeLogUnlimited_Output(curr(), function(m) SendChat(m, curr().who) end, true);
 	end
 end
 
-function TradeLog_GetMoneyColorText(money)
+function TradeLogUnlimited_GetMoneyColorText(money)
 	local GSC_GOLD="ffd100"
 	local GSC_SILVER="e6e6e6"
 	local GSC_COPPER="c8602c"
@@ -375,7 +375,7 @@ function TradeLog_GetMoneyColorText(money)
 	return text;
 end
 
-function TradeLog_GetMoneyPlainText(money)
+function TradeLogUnlimited_GetMoneyPlainText(money)
 	local g = math.floor( money / 10000 );
 	local s = math.floor( money / 100 ) - g*100 ;
 	local c = money - ( g * 100 + s ) * 100;
@@ -388,11 +388,11 @@ function TradeLog_GetMoneyPlainText(money)
 	return text;
 end
 
-function TradeLog_TradeTooltip(self, trade)
+function TradeLogUnlimited_TradeTooltip(self, trade)
 	GameTooltip_SetDefaultAnchor(GameTooltip, self);
 	if(trade.result=="complete")then
-		local playerList = TradeLog_GetTradeList( trade.playerMoney, trade.playerItems, trade.targetItems[7], TradeLog_GetMoneyColorText)
-		local targetList = TradeLog_GetTradeList( trade.targetMoney, trade.targetItems, trade.playerItems[7], TradeLog_GetMoneyColorText)
+		local playerList = TradeLogUnlimited_GetTradeList( trade.playerMoney, trade.playerItems, trade.targetItems[7], TradeLogUnlimited_GetMoneyColorText)
+		local targetList = TradeLogUnlimited_GetTradeList( trade.targetMoney, trade.targetItems, trade.playerItems[7], TradeLogUnlimited_GetMoneyColorText)
 
 		GameTooltip:SetText(TRADE_LOG_RESULT_TEXT.complete.." - "..trade.who, 1, 1, 1);
 		local _,_,month,day,hour,min = string.find(trade.when, "(%d+)-(%d+) (%d+):(%d+)")
@@ -400,7 +400,7 @@ function TradeLog_TradeTooltip(self, trade)
 		GameTooltip:AddDoubleLine(when, trade.where);
 		GameTooltip:AddDoubleLine(TRADE_LOG_HANDOUT, TRADE_LOG_RECEIVE, 0.6, 0.6, 0.6, 1, 1, 1);
 		--if trade.playerMoney + trade.targetMoney > 0 then
-		--	GameTooltip:AddDoubleLine(TradeLog_GetMoneyColorText(trade.playerMoney).." ", " "..TradeLog_GetMoneyColorText(trade.targetMoney), 0.6, 0.6, 0.6, 1, 1, 1);
+		--	GameTooltip:AddDoubleLine(TradeLogUnlimited_GetMoneyColorText(trade.playerMoney).." ", " "..TradeLogUnlimited_GetMoneyColorText(trade.targetMoney), 0.6, 0.6, 0.6, 1, 1, 1);
 		--end
 		for  i=1, math.max(#playerList, #targetList) do
 			GameTooltip:AddDoubleLine(playerList[i] or " ", targetList[i] or " ");
@@ -421,7 +421,7 @@ end
 function TBT_AnnounceChannelDropDown_OnClick(self)
 	UIDropDownMenu_SetSelectedValue(TBT_AnnounceChannelDropDown, self.value);
 	TBT_AnnounceCB:SetChecked(1);
-	TradeLog_AnnounceChannel = self.value;
+	TradeLogUnlimited_AnnounceChannel = self.value;
 end
 
 function TBT_AnnounceChannelDropDown_Initialize()
@@ -475,5 +475,5 @@ function TBT_AnnounceChannelDropDown_Initialize()
 end
 
 local frame = CreateFrame("Frame");
-frame:SetScript("OnEvent", TradeLog_OnEvent);
-TradeLog_OnLoad(frame);
+frame:SetScript("OnEvent", TradeLogUnlimited_OnEvent);
+TradeLogUnlimited_OnLoad(frame);

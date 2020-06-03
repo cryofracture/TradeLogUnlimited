@@ -1,8 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
-	<Script file="TradeLogFrame.lua"/>
+	<Script file="TradeLogUnlimitedFrame.lua"/>
 
-	<Button name="TradeLogItemButtonTemplate" virtual="true">
+	<Button name="TradeLogUnlimitedItemButtonTemplate" virtual="true">
 		<Size>
 			<AbsDimension x="25" y="25"/>
 		</Size>
@@ -41,7 +41,7 @@
 		<HighlightTexture file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD"/>
 	</Button>
 
-	<Frame name="TradeLogItemTemplate" virtual="true">
+	<Frame name="TradeLogUnlimitedItemTemplate" virtual="true">
 		<Size>
 			<AbsDimension x="105" y="23"/>
 		</Size>
@@ -115,9 +115,9 @@
 			</Layer>
 		</Layers>
 	</Frame>
-	<Frame name="RecipientTradeLogItemTemplate" inherits="TradeLogItemTemplate" virtual="true">
+	<Frame name="RecipientTradeLogUnlimitedItemTemplate" inherits="TradeLogUnlimitedItemTemplate" virtual="true">
 		<Frames>
-			<Button name="$parentItemButton" inherits="TradeLogItemButtonTemplate">
+			<Button name="$parentItemButton" inherits="TradeLogUnlimitedItemButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent">
 						<Offset>
@@ -154,9 +154,9 @@
 			</Button>
 		</Frames>
 	</Frame>
-	<Frame name="PlayerTradeItemLogTemplate" inherits="TradeLogItemTemplate" virtual="true">
+	<Frame name="PlayerTradeItemLogTemplate" inherits="TradeLogUnlimitedItemTemplate" virtual="true">
 		<Frames>
-			<Button name="$parentItemButton" inherits="TradeLogItemButtonTemplate">
+			<Button name="$parentItemButton" inherits="TradeLogUnlimitedItemButtonTemplate">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="$parent">
 						<Offset>
@@ -195,7 +195,7 @@
 	</Frame>
 
 
-	<Frame name="TradeLogFrame" parent="UIParent" movable="true" toplevel="true" enableMouse="true" hidden="true">
+	<Frame name="TradeLogUnlimitedFrame" parent="UIParent" movable="true" toplevel="true" enableMouse="true" hidden="true">
 		<TitleRegion setAllPoints="true"/>
 		<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
 			<EdgeSize>
@@ -226,7 +226,7 @@
 -->
 		<Layers>
 			<Layer level="ARTWORK">
-				<FontString name="TradeLogFramePlayerNameText" inherits="GameFontNormal" justifyH="LEFT"  text="playerName">
+				<FontString name="TradeLogUnlimitedFramePlayerNameText" inherits="GameFontNormal" justifyH="LEFT"  text="playerName">
 					<Size>
 						<AbsDimension x="110" y="12"/>
 					</Size>
@@ -239,12 +239,12 @@
 					</Anchors>
 				</FontString>
 
-				<FontString name="TradeLogFrameRecipientNameText" inherits="GameFontNormal" justifyH="LEFT" text="targetName">
+				<FontString name="TradeLogUnlimitedFrameRecipientNameText" inherits="GameFontNormal" justifyH="LEFT" text="targetName">
 					<Size>
 						<AbsDimension x="110" y="12"/>
 					</Size>
 					<Anchors>
-						<Anchor point="TOPLEFT" relativeTo="TradeLogFramePlayerNameText" relativePoint="TOPRIGHT">
+						<Anchor point="TOPLEFT" relativeTo="TradeLogUnlimitedFramePlayerNameText" relativePoint="TOPRIGHT">
 							<Offset>
 								<AbsDimension x="15" y="0"/>
 							</Offset>
@@ -252,7 +252,7 @@
 					</Anchors>
 				</FontString>
 
-				<FontString name="TradeLogFrameWhenWhereText" inherits="GameFontNormalSmall" justifyH="CENTER" text="datetime - place">
+				<FontString name="TradeLogUnlimitedFrameWhenWhereText" inherits="GameFontNormalSmall" justifyH="CENTER" text="datetime - place">
 					<Size>
 						<AbsDimension x="240" y="28"/>
 					</Size>
@@ -268,7 +268,7 @@
 			</Layer>
 		</Layers>
 		<Frames>
-			<Button name="TradeLogFrameClose" inherits="UIPanelCloseButton">
+			<Button name="TradeLogUnlimitedFrameClose" inherits="UIPanelCloseButton">
 				<Anchors>
 					<Anchor point="TOPRIGHT">
 						<Offset>
@@ -277,9 +277,9 @@
 					</Anchor>
 				</Anchors>
 			</Button>
-			<Frame name="TradeLogPlayerMoneyFrame" inherits="SmallMoneyFrameTemplate">
+			<Frame name="TradeLogUnlimitedPlayerMoneyFrame" inherits="SmallMoneyFrameTemplate">
 				<Anchors>
-					<Anchor point="TOPRIGHT" relativeTo="TradeLogFramePlayerNameText" relativePoint="BOTTOMRIGHT">
+					<Anchor point="TOPRIGHT" relativeTo="TradeLogUnlimitedFramePlayerNameText" relativePoint="BOTTOMRIGHT">
 						<Offset>
 							<AbsDimension x="11" y="-7"/>
 						</Offset>
@@ -292,9 +292,9 @@
 					</OnLoad>
 				</Scripts>
 			</Frame>
-			<Frame name="TradeLogRecipientMoneyFrame" inherits="SmallMoneyFrameTemplate">
+			<Frame name="TradeLogUnlimitedRecipientMoneyFrame" inherits="SmallMoneyFrameTemplate">
 				<Anchors>
-					<Anchor point="TOPRIGHT" relativeTo="TradeLogFrameRecipientNameText" relativePoint="BOTTOMRIGHT">
+					<Anchor point="TOPRIGHT" relativeTo="TradeLogUnlimitedFrameRecipientNameText" relativePoint="BOTTOMRIGHT">
 						<Offset>
 							<AbsDimension x="11" y="-7"/>
 						</Offset>
@@ -308,126 +308,126 @@
 				</Scripts>
 			</Frame>
 
-			<Frame name="TradeLogPlayerItem1" inherits="PlayerTradeItemLogTemplate" id="1">
+			<Frame name="TradeLogUnlimitedPlayerItem1" inherits="PlayerTradeItemLogTemplate" id="1">
 				<Anchors>
-					<Anchor point="TOPRIGHT" relativeTo="TradeLogPlayerMoneyFrame" relativePoint="BOTTOMRIGHT">
+					<Anchor point="TOPRIGHT" relativeTo="TradeLogUnlimitedPlayerMoneyFrame" relativePoint="BOTTOMRIGHT">
 						<Offset>
 							<AbsDimension x="-10" y="-6"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 			</Frame>
-			<Frame name="TradeLogPlayerItem2" inherits="PlayerTradeItemLogTemplate" id="2">
+			<Frame name="TradeLogUnlimitedPlayerItem2" inherits="PlayerTradeItemLogTemplate" id="2">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="TradeLogPlayerItem1" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" relativeTo="TradeLogUnlimitedPlayerItem1" relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="0" y="-4"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 			</Frame>
-			<Frame name="TradeLogPlayerItem3" inherits="PlayerTradeItemLogTemplate" id="3">
+			<Frame name="TradeLogUnlimitedPlayerItem3" inherits="PlayerTradeItemLogTemplate" id="3">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="TradeLogPlayerItem2" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" relativeTo="TradeLogUnlimitedPlayerItem2" relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="0" y="-4"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 			</Frame>
-			<Frame name="TradeLogPlayerItem4" inherits="PlayerTradeItemLogTemplate" id="4">
+			<Frame name="TradeLogUnlimitedPlayerItem4" inherits="PlayerTradeItemLogTemplate" id="4">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="TradeLogPlayerItem3" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" relativeTo="TradeLogUnlimitedPlayerItem3" relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="0" y="-4"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 			</Frame>
-			<Frame name="TradeLogPlayerItem5" inherits="PlayerTradeItemLogTemplate" id="5">
+			<Frame name="TradeLogUnlimitedPlayerItem5" inherits="PlayerTradeItemLogTemplate" id="5">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="TradeLogPlayerItem4" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" relativeTo="TradeLogUnlimitedPlayerItem4" relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="0" y="-4"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 			</Frame>
-			<Frame name="TradeLogPlayerItem6" inherits="PlayerTradeItemLogTemplate" id="6">
+			<Frame name="TradeLogUnlimitedPlayerItem6" inherits="PlayerTradeItemLogTemplate" id="6">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="TradeLogPlayerItem5" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" relativeTo="TradeLogUnlimitedPlayerItem5" relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="0" y="-4"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 			</Frame>
-			<Frame name="TradeLogPlayerItem7" inherits="PlayerTradeItemLogTemplate" id="7">
+			<Frame name="TradeLogUnlimitedPlayerItem7" inherits="PlayerTradeItemLogTemplate" id="7">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="TradeLogPlayerItem6" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" relativeTo="TradeLogUnlimitedPlayerItem6" relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="0" y="-10"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 			</Frame>
-			<Frame name="TradeLogRecipientItem1" inherits="RecipientTradeLogItemTemplate" id="1">
+			<Frame name="TradeLogUnlimitedRecipientItem1" inherits="RecipientTradeLogUnlimitedItemTemplate" id="1">
 				<Anchors>
-					<Anchor point="TOPRIGHT" relativeTo="TradeLogRecipientMoneyFrame" relativePoint="BOTTOMRIGHT">
+					<Anchor point="TOPRIGHT" relativeTo="TradeLogUnlimitedRecipientMoneyFrame" relativePoint="BOTTOMRIGHT">
 						<Offset>
 							<AbsDimension x="-10" y="-6"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 			</Frame>
-			<Frame name="TradeLogRecipientItem2" inherits="RecipientTradeLogItemTemplate" id="2">
+			<Frame name="TradeLogUnlimitedRecipientItem2" inherits="RecipientTradeLogUnlimitedItemTemplate" id="2">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="TradeLogRecipientItem1" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" relativeTo="TradeLogUnlimitedRecipientItem1" relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="0" y="-4"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 			</Frame>
-			<Frame name="TradeLogRecipientItem3" inherits="RecipientTradeLogItemTemplate" id="3">
+			<Frame name="TradeLogUnlimitedRecipientItem3" inherits="RecipientTradeLogUnlimitedItemTemplate" id="3">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="TradeLogRecipientItem2" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" relativeTo="TradeLogUnlimitedRecipientItem2" relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="0" y="-4"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 			</Frame>
-			<Frame name="TradeLogRecipientItem4" inherits="RecipientTradeLogItemTemplate" id="4">
+			<Frame name="TradeLogUnlimitedRecipientItem4" inherits="RecipientTradeLogUnlimitedItemTemplate" id="4">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="TradeLogRecipientItem3" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" relativeTo="TradeLogUnlimitedRecipientItem3" relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="0" y="-4"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 			</Frame>
-			<Frame name="TradeLogRecipientItem5" inherits="RecipientTradeLogItemTemplate" id="5">
+			<Frame name="TradeLogUnlimitedRecipientItem5" inherits="RecipientTradeLogUnlimitedItemTemplate" id="5">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="TradeLogRecipientItem4" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" relativeTo="TradeLogUnlimitedRecipientItem4" relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="0" y="-4"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 			</Frame>
-			<Frame name="TradeLogRecipientItem6" inherits="RecipientTradeLogItemTemplate" id="6">
+			<Frame name="TradeLogUnlimitedRecipientItem6" inherits="RecipientTradeLogUnlimitedItemTemplate" id="6">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="TradeLogRecipientItem5" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" relativeTo="TradeLogUnlimitedRecipientItem5" relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="0" y="-4"/>
 						</Offset>
 					</Anchor>
 				</Anchors>
 			</Frame>
-			<Frame name="TradeLogRecipientItem7" inherits="RecipientTradeLogItemTemplate" id="7">
+			<Frame name="TradeLogUnlimitedRecipientItem7" inherits="RecipientTradeLogUnlimitedItemTemplate" id="7">
 				<Anchors>
-					<Anchor point="TOPLEFT" relativeTo="TradeLogRecipientItem6" relativePoint="BOTTOMLEFT">
+					<Anchor point="TOPLEFT" relativeTo="TradeLogUnlimitedRecipientItem6" relativePoint="BOTTOMLEFT">
 						<Offset>
 							<AbsDimension x="0" y="-10"/>
 						</Offset>
@@ -438,7 +438,7 @@
 		</Frames>
 		<Scripts>
 			<OnLoad>
-				TradeLogFrame_OnLoad(self);
+				TradeLogUnlimitedFrame_OnLoad(self);
 			</OnLoad>
 			<OnShow>
 				self:SetMovable(true);
@@ -636,13 +636,13 @@
 				self:RegisterForClicks("LeftButtonUp");
 			</OnLoad>
 			<OnClick>
-				if(self.offset and TradeLog_TradesHistory[self.offset]) then
-					TradeListFrame_ShowDetail(TradeLog_TradesHistory[self.offset]);
+				if(self.offset and TradeLogUnlimited_TradesHistory[self.offset]) then
+					TradeListFrame_ShowDetail(TradeLogUnlimited_TradesHistory[self.offset]);
 				end
 			</OnClick>
 			<OnEnter>
-				if(self.offset and TradeLog_TradesHistory[self.offset]) then
-					TradeLog_TradeTooltip(self, TradeLog_TradesHistory[self.offset]);
+				if(self.offset and TradeLogUnlimited_TradesHistory[self.offset]) then
+					TradeLogUnlimited_TradeTooltip(self, TradeLogUnlimited_TradesHistory[self.offset]);
 				end
 			</OnEnter>
 			<OnLeave>
@@ -717,7 +717,7 @@
 				</Scripts>
 			</Button>
 
-			<Slider name="TradeLogFrameScaleSlider" inherits="OptionsSliderTemplate">
+			<Slider name="TradeLogUnlimitedFrameScaleSlider" inherits="OptionsSliderTemplate">
 				<Anchors>
 					<Anchor point="LEFT" relativeTo="TradeListKeepOnlyTodayButton" relativePoint="RIGHT">
 						<Offset>
@@ -741,7 +741,7 @@
 						string:SetText(TRADE_LIST_SCALE);
 					</OnLoad>
 					<OnValueChanged>
-						TradeLogFrame:SetScale(self:GetValue());								
+						TradeLogUnlimitedFrame:SetScale(self:GetValue());								
 					</OnValueChanged>
 				</Scripts>
 			</Slider>
@@ -752,7 +752,7 @@
 					<AbsDimension x="26" y="26"/>
 				</Size>
 				<Anchors>
-					<Anchor point="LEFT" relativeTo="TradeLogFrameScaleSlider" relativePoint="RIGHT">
+					<Anchor point="LEFT" relativeTo="TradeLogUnlimitedFrameScaleSlider" relativePoint="RIGHT">
 						<Offset>
 							<AbsDimension x="30" y="0"/>
 						</Offset>

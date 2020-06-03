@@ -2,7 +2,7 @@
 ## LoadOnDemand: 0
 ## Title: TradeLogUnlimited
 ## Notes: Recent trades, trade history, announcing trades of items and gold.
-## SavedVariablesPerCharacter: TradeLog_TradesHistory, TradeLog_Announce_Checked, TradeLog_AnnounceChannel
+## SavedVariablesPerCharacter: TradeLogUnlimited_TradesHistory, TradeLogUnlimited_Announce_Checked, TradeLogUnlimited_AnnounceChannel
 
 Libs\LibDBIcon-1.0.xml
 

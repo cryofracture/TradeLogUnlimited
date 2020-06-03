@@ -29,13 +29,13 @@
 				self:RegisterForClicks("LeftButtonUp");
 			</OnLoad>
 			<OnClick>
-				if(self.offset and TradeLog_TradesHistory[self.offset] and TradeListFrame_ShowDetail) then
-					TradeListFrame_ShowDetail(TradeLog_TradesHistory[self.offset]);
+				if(self.offset and TradeLogUnlimited_TradesHistory[self.offset] and TradeListFrame_ShowDetail) then
+					TradeListFrame_ShowDetail(TradeLogUnlimited_TradesHistory[self.offset]);
 				end
 			</OnClick>
 			<OnEnter>
-				if(self.offset and TradeLog_TradesHistory[self.offset]) then
-					TradeLog_TradeTooltip(self, TradeLog_TradesHistory[self.offset]);
+				if(self.offset and TradeLogUnlimited_TradesHistory[self.offset]) then
+					TradeLogUnlimited_TradeTooltip(self, TradeLogUnlimited_TradesHistory[self.offset]);
 				end
 			</OnEnter>
 			<OnLeave>

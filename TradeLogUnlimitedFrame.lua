@@ -5,7 +5,7 @@ function TradeLogFrame_OnLoad(self)
 
     TradeLog_SetHyperlink_Origin = ItemRefTooltip.SetHyperlink;
     ItemRefTooltip.SetHyperlink = function(self,link)
-        if(strsub(link, 1, 8)=="tradelog") then
+        if(strsub(link, 1, 8)=="TradeLogUnlimited") then
             HideUIPanel(self);
             return;
         end
@@ -15,7 +15,7 @@ function TradeLogFrame_OnLoad(self)
 end
 
 function TradeLogFrame_CreateMinimapButton()
-    local ldb = LibStub("LibDataBroker-1.1"):NewDataObject("TradeLog", {
+    local ldb = LibStub("LibDataBroker-1.1"):NewDataObject("TradeLogUnlimited", {
         type = "launcher",
         text = TRADE_LIST_TITLE,
         icon = [[Interface\MINIMAP\TRACKING\Banker]],
@@ -34,20 +34,20 @@ function TradeLogFrame_CreateMinimapButton()
         end,
     })
     TradeLog_TradesHistory.minimapPos = TradeLog_TradesHistory.minimapPos or 338
-    LibDBIcon:Register("TradeLog", ldb, TradeLog_TradesHistory);
-    if ( TradeLog_TradesHistory.hideMinimapIcon ) then LibDBIcon:Hide("TradeLog") end
+    LibDBIcon:Register("TradeLogUnlimited", ldb, TradeLog_TradesHistory);
+    if ( TradeLog_TradesHistory.hideMinimapIcon ) then LibDBIcon:Hide("TradeLogUnlimited") end
 
-    SLASH_TRADELOGICON1 = "/tradelog";
+    SLASH_TRADELOGICON1 = "/TradeLogUnlimited";
     SlashCmdList["TRADELOGICON"] = function(msg)
         if  ( msg~="icon" ) then
             DEFAULT_CHAT_FRAME:AddMessage("Usage: '/tradelog icon' to toggle minimap icon")
         else
             TradeLog_TradesHistory.hideMinimapIcon = not TradeLog_TradesHistory.hideMinimapIcon
             if ( TradeLog_TradesHistory.hideMinimapIcon ) then
-                LibDBIcon:Hide("TradeLog")
+                LibDBIcon:Hide("TradeLogUnlimited")
                 DEFAULT_CHAT_FRAME:AddMessage("TradeLog minimap icon disabled");
             else
-                LibDBIcon:Show("TradeLog")
+                LibDBIcon:Show("TradeLogUnlimited")
                 DEFAULT_CHAT_FRAME:AddMessage("TradeLog minimap icon enabled");
             end
         end
@@ -56,7 +56,7 @@ end
 
 
 function TradeLogFrame_SetItemRef(link, text, button)
-    if ( strsub(link, 1, 8) == "tradelog" ) then
+    if ( strsub(link, 1, 8) == "TradeLogUnlimited" ) then
         local id = 0+gsub(gsub(strsub(link,10),"/2","|"),"/1","/");
         if(id and TradeLog_TradesHistory) then
             for _, v in ipairs(TradeLog_TradesHistory) do
