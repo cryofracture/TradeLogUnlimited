@@ -1,6 +1,6 @@
 ﻿## Interface: 80300
 ## LoadOnDemand: 0
-## Title: TradeLog2
+## Title: TradeLogUnlimited
 ## Notes: Recent trades, trade history, announcing trades of items and gold.
 ## SavedVariablesPerCharacter: TradeLog_TradesHistory, TradeLog_Announce_Checked, TradeLog_AnnounceChannel
 
