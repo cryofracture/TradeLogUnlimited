@@ -1,8 +1,8 @@
-﻿## Interface: 80300
+﻿## Interface: 11304
 ## LoadOnDemand: 0
 ## Title: TradeLogUnlimited
 ## Notes: Recent trades, trade history, announcing trades of items and gold.
-## SavedVariablesPerCharacter: TradeLogUnlimitedd_TradesHistory, TradeLogUnlimitedd_Announce_Checked, TradeLogUnlimitedd_AnnounceChannel
+## SavedVariablesPerCharacter: TradeLogUnlimited_TradesHistory, TradeLogUnlimited_Announce_Checked, TradeLogUnlimited_AnnounceChannel
 
 Libs\LibDBIcon-1.0.xml
 
