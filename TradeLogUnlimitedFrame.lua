@@ -1,21 +1,21 @@
 local LibDBIcon = LibStub("LibDBIcon-1.0")
 
-function TradeLogFrame_OnLoad(self)
+function TradeLogUnlimitedFrame_OnLoad(self)
     table.insert(UISpecialFrames, self:GetName()); --for esc close frame
 
-    TradeLog_SetHyperlink_Origin = ItemRefTooltip.SetHyperlink;
+    TradeLogUnlimited_SetHyperlink_Origin = ItemRefTooltip.SetHyperlink;
     ItemRefTooltip.SetHyperlink = function(self,link)
-        if(strsub(link, 1, 8)=="TradeLogUnlimited") then
+        if(strsub(link, 1, 8)=="TradeLogUnlimitedUnlimited") then
             HideUIPanel(self);
             return;
         end
-        return TradeLog_SetHyperlink_Origin(self,link);
+        return TradeLogUnlimited_SetHyperlink_Origin(self,link);
     end
-    hooksecurefunc("SetItemRef", TradeLogFrame_SetItemRef);
+    hooksecurefunc("SetItemRef", TradeLogUnlimitedFrame_SetItemRef);
 end
 
-function TradeLogFrame_CreateMinimapButton()
-    local ldb = LibStub("LibDataBroker-1.1"):NewDataObject("TradeLogUnlimited", {
+function TradeLogUnlimitedFrame_CreateMinimapButton()
+    local ldb = LibStub("LibDataBroker-1.1"):NewDataObject("TradeLogUnlimitedUnlimited", {
         type = "launcher",
         text = TRADE_LIST_TITLE,
         icon = [[Interface\MINIMAP\TRACKING\Banker]],
@@ -33,36 +33,36 @@ function TradeLogFrame_CreateMinimapButton()
             GameTooltip:Show()
         end,
     })
-    TradeLog_TradesHistory.minimapPos = TradeLog_TradesHistory.minimapPos or 338
-    LibDBIcon:Register("TradeLogUnlimited", ldb, TradeLog_TradesHistory);
-    if ( TradeLog_TradesHistory.hideMinimapIcon ) then LibDBIcon:Hide("TradeLogUnlimited") end
+    TradeLogUnlimited_TradesHistory.minimapPos = TradeLogUnlimited_TradesHistory.minimapPos or 338
+    LibDBIcon:Register("TradeLogUnlimitedUnlimited", ldb, TradeLogUnlimited_TradesHistory);
+    if ( TradeLogUnlimited_TradesHistory.hideMinimapIcon ) then LibDBIcon:Hide("TradeLogUnlimitedUnlimited") end
 
-    SLASH_TRADELOGICON1 = "/TradeLogUnlimited";
-    SlashCmdList["TRADELOGICON"] = function(msg)
+    SLASH_TRADELOGUNLIMITEDICON1 = "/TradeLogUnlimited";
+    SlashCmdList["TradeLogUnlimitedICON"] = function(msg)
         if  ( msg~="icon" ) then
-            DEFAULT_CHAT_FRAME:AddMessage("Usage: '/tradelog icon' to toggle minimap icon")
+            DEFAULT_CHAT_FRAME:AddMessage("Usage: '/TradeLogUnlimited icon' to toggle minimap icon")
         else
-            TradeLog_TradesHistory.hideMinimapIcon = not TradeLog_TradesHistory.hideMinimapIcon
-            if ( TradeLog_TradesHistory.hideMinimapIcon ) then
+            TradeLogUnlimited_TradesHistory.hideMinimapIcon = not TradeLogUnlimited_TradesHistory.hideMinimapIcon
+            if ( TradeLogUnlimited_TradesHistory.hideMinimapIcon ) then
                 LibDBIcon:Hide("TradeLogUnlimited")
-                DEFAULT_CHAT_FRAME:AddMessage("TradeLog minimap icon disabled");
+                DEFAULT_CHAT_FRAME:AddMessage("TradeLogUnlimited minimap icon disabled");
             else
                 LibDBIcon:Show("TradeLogUnlimited")
-                DEFAULT_CHAT_FRAME:AddMessage("TradeLog minimap icon enabled");
+                DEFAULT_CHAT_FRAME:AddMessage("TradeLogUnlimited minimap icon enabled");
             end
         end
     end
 end
 
 
-function TradeLogFrame_SetItemRef(link, text, button)
+function TradeLogUnlimitedFrame_SetItemRef(link, text, button)
     if ( strsub(link, 1, 8) == "TradeLogUnlimited" ) then
         local id = 0+gsub(gsub(strsub(link,10),"/2","|"),"/1","/");
-        if(id and TradeLog_TradesHistory) then
-            for _, v in ipairs(TradeLog_TradesHistory) do
+        if(id and TradeLogUnlimited_TradesHistory) then
+            for _, v in ipairs(TradeLogUnlimited_TradesHistory) do
                 if(v.id==id) then
-                    TradeLogFrame_FillDetailLog(v);
-                    TradeLogFrame:Show();
+                    TradeLogUnlimitedFrame_FillDetailLog(v);
+                    TradeLogUnlimitedFrame:Show();
                     return;
                 end
             end
@@ -70,30 +70,30 @@ function TradeLogFrame_SetItemRef(link, text, button)
     end
 end;
 
-function TradeLogFrame_FillDetailLog(trade)
-    --DEFAULT_CHAT_FRAME:AddMessage("|CFF00B4FF|Htradelog:"..TEXT(trade.id).."|h[TradeLog]|h|r");
-    MoneyFrame_Update("TradeLogRecipientMoneyFrame", trade.targetMoney);
-    MoneyFrame_Update("TradeLogPlayerMoneyFrame", trade.playerMoney);
+function TradeLogUnlimitedFrame_FillDetailLog(trade)
+    --DEFAULT_CHAT_FRAME:AddMessage("|CFF00B4FF|HTradeLogUnlimited:"..TEXT(trade.id).."|h[TradeLogUnlimited]|h|r");
+    MoneyFrame_Update("TradeLogUnlimitedRecipientMoneyFrame", trade.targetMoney);
+    MoneyFrame_Update("TradeLogUnlimitedPlayerMoneyFrame", trade.playerMoney);
 
-    TradeLogFramePlayerNameText:SetText(trade.player);
-    TradeLogFrameRecipientNameText:SetText(trade.who);
-    TradeLogFrameWhenWhereText:SetText(trade.when.." - "..trade.where);
+    TradeLogUnlimitedFramePlayerNameText:SetText(trade.player);
+    TradeLogUnlimitedFrameRecipientNameText:SetText(trade.who);
+    TradeLogUnlimitedFrameWhenWhereText:SetText(trade.when.." - "..trade.where);
 
     for i=1,7 do
-        TradeLogFrame_UpdateItem(getglobal("TradeLogPlayerItem"..i), trade.playerItems[i]);
-        TradeLogFrame_UpdateItem(getglobal("TradeLogRecipientItem"..i), trade.targetItems[i]);
+        TradeLogUnlimitedFrame_UpdateItem(getglobal("TradeLogUnlimitedPlayerItem"..i), trade.playerItems[i]);
+        TradeLogUnlimitedFrame_UpdateItem(getglobal("TradeLogUnlimitedRecipientItem"..i), trade.targetItems[i]);
     end
 end
 
-function TradeLogFrame_UpdateItem(frame, item)
+function TradeLogUnlimitedFrame_UpdateItem(frame, item)
     if(item) then
-        TradeLogFrame_UpdateItemDetail(frame, item.name, item.texture, item.numItems, item.isUsable, item.enchantment, item.itemLink);
+        TradeLogUnlimitedFrame_UpdateItemDetail(frame, item.name, item.texture, item.numItems, item.isUsable, item.enchantment, item.itemLink);
     else
-        TradeLogFrame_UpdateItemDetail(frame);
+        TradeLogUnlimitedFrame_UpdateItemDetail(frame);
     end
 end
 
-function TradeLogFrame_UpdateItemDetail(frame, name, texture, numItems, isUsable, enchantment, itemLink)
+function TradeLogUnlimitedFrame_UpdateItemDetail(frame, name, texture, numItems, isUsable, enchantment, itemLink)
     local frameName = frame:GetName();
     local id = frame:GetID();
     local buttonText = getglobal(frameName.."Name");
@@ -120,8 +120,8 @@ function TradeLogFrame_UpdateItemDetail(frame, name, texture, numItems, isUsable
         buttonText:SetText(name);
     end
     buttonText:SetTextHeight(12);
-    TradeLogRecipientMoneyFrame:SetScale(0.9);
-    TradeLogPlayerMoneyFrame:SetScale(0.9);
+    TradeLogUnlimitedRecipientMoneyFrame:SetScale(0.9);
+    TradeLogUnlimitedPlayerMoneyFrame:SetScale(0.9);
     local tradeItemButton = getglobal(frameName.."ItemButton");
     local tradeItem = frame;
     SetItemButtonTexture(tradeItemButton, texture);
@@ -142,11 +142,11 @@ function TradeListScrollFrame_Update(self)
 
     count=0;
     if(TradeListOnlyCompleteCB:GetChecked()) then
-        for _, v in ipairs(TradeLog_TradesHistory) do
+        for _, v in ipairs(TradeLogUnlimited_TradesHistory) do
             if(v.result=="complete")then count=count+1 end
         end
     else
-        count = table.getn(TradeLog_TradesHistory);
+        count = table.getn(TradeLogUnlimited_TradesHistory);
     end
 
     FauxScrollFrame_Update(TradeListScrollFrame,count,15,16);
@@ -156,7 +156,7 @@ function TradeListScrollFrame_Update(self)
     else
         offset=FauxScrollFrame_GetOffset(TradeListScrollFrame)+1;
         if(TradeListOnlyCompleteCB:GetChecked()) then
-            for k, v in ipairs(TradeLog_TradesHistory) do
+            for k, v in ipairs(TradeLogUnlimited_TradesHistory) do
                 if(v.result=="complete")then offset = offset - 1 end;
                 if(offset == 0) then
                     offset = k;
@@ -167,8 +167,8 @@ function TradeListScrollFrame_Update(self)
     end
     line=1
     while line<=15 do
-        if offset<=table.getn(TradeLog_TradesHistory) then
-            local trade=TradeLog_TradesHistory[offset];
+        if offset<=table.getn(TradeLogUnlimited_TradesHistory) then
+            local trade=TradeLogUnlimited_TradesHistory[offset];
             if(not TradeListOnlyCompleteCB:GetChecked() or trade.result=="complete") then
                 local _,_,month,day,hour,min = string.find(trade.when, "(%d+)-(%d+) (%d+):(%d+)")
                 getglobal("TradeListFrameButton"..line).offset = offset;
@@ -240,40 +240,40 @@ StaticPopupDialogs["TRADE_LOG_CLEAR_HISTORY"] = {preferredIndex = 3,
         getglobal(self:GetName().."Text"):SetText(TRADE_LIST_CLEAR_CONFIRM);
     end,
     OnAccept = function(self)
-        TradeLog_KeepOnlyToday();
+        TradeLogUnlimited_KeepOnlyToday();
     end,
     timeout = 0,
     hideOnEscape = 1
 };
 
-function TradeLog_KeepOnlyToday()
+function TradeLogUnlimited_KeepOnlyToday()
     local today = {
         month = date("%m"),
         day = date("%d"),
     }
-    for k, v in ipairs(TradeLog_TradesHistory) do
+    for k, v in ipairs(TradeLogUnlimited_TradesHistory) do
         local _,_,month,day,hour,min = string.find(v.when, "(%d+)-(%d+) (%d+):(%d+)");
         if(month==today.month and day==today.day)then
             local tmp = {}
-            for i=k, table.getn(TradeLog_TradesHistory) do
-                table.insert(tmp, TradeLog_TradesHistory[i]);
+            for i=k, table.getn(TradeLogUnlimited_TradesHistory) do
+                table.insert(tmp, TradeLogUnlimited_TradesHistory[i]);
             end
-            TradeLog_TradesHistory = nil;
-            TradeLog_TradesHistory = tmp;
+            TradeLogUnlimited_TradesHistory = nil;
+            TradeLogUnlimited_TradesHistory = tmp;
             TradeListScrollFrame_Update();
             return;
         end
     end
 
-    TradeLog_TradesHistory = nil;
-    TradeLog_TradesHistory = {};
+    TradeLogUnlimited_TradesHistory = nil;
+    TradeLogUnlimited_TradesHistory = {};
     TradeListScrollFrame_Update();
 end
 
 function TradeListFrame_ShowDetail(trade)
-    TradeLogFrame:Hide();
+    TradeLogUnlimitedFrame:Hide();
     if(trade.result=="complete")then
-        TradeLogFrame_FillDetailLog(trade);
-        TradeLogFrame:Show();
+        TradeLogUnlimitedFrame_FillDetailLog(trade);
+        TradeLogUnlimitedFrame:Show();
     end;
 end

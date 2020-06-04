@@ -1,4 +1,29 @@
+commit 5c234d46a718413e3904cc2a891e056ca08740aa (HEAD -> master)
+Author: Cryofracture <thecryoforce@gmail.com>
+Date:   Wed Jun 3 18:21:52 2020 -0500
+
+    Update to TradeLogUnlimited var names.
+
+commit 47c935e556fe679fedda78f7d4a01c3ce8189011
+Author: Cryofracture <thecryoforce@gmail.com>
+Date:   Wed Jun 3 16:14:29 2020 -0500
+
+    Update Addon Name
+
+commit 748a08914ef6f3c8fd6fa3d6a58f38b425f436d7
+Author: Cryofracture <thecryoforce@gmail.com>
+Date:   Tue Jun 2 01:12:49 2020 -0500
+
+    TradeLogUnlimited Published to CurseForge
+
+commit 42ad183094e094b1eb7c67f563f5d9c0865bd571
 Author: Cryofracture <thecryoforce@gmail.com>
 Date:   Tue Jun 2 00:59:11 2020 -0500
 
     TradeLogUnlimited Published to CurseForge
+
+commit 1cbee0b815ba2e668e3c133610a3aabedd4e0523
+Author: Cryofracture <thecryoforce@gmail.com>
+Date:   Tue Jun 2 00:57:46 2020 -0500
+
+    TradeLogUnlimited Ready
