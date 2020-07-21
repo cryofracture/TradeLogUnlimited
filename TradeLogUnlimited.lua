@@ -1,7 +1,7 @@
 SLASH_TRADELOGSHOW1 = "/tbtdebug";
 SlashCmdList["TRADELOGSHOW"] = function(msg)
 	DEFAULT_CHAT_FRAME:AddMessage("(debug)TradeId-"..msg.." |Htradelog:"..msg.."|h[DETAIL]|h:");
-	TBT_CURRENT_TRADE = TradeLogUnlimited_TradesHistory[0+msg];
+	TBT_CURRENT_TRADE = TradeLogUnlimited_TradesHistory[0];
 	TradeLogUnlimited_OutputLog();
 	table.remove(TradeLogUnlimited_TradesHistory, getn(TradeLogUnlimited_TradesHistory));
 end
@@ -255,6 +255,12 @@ function TradeLogUnlimited_FindAnnounceChannel(channel)
 		else
 			return "SAY";
 		end
+	elseif(channel=="YELL") then
+		--SendChatMessage(msg,channel);
+		return "YELL";
+	else
+		--SendChatMessage(msg,channel);
+		return "SAY";
 	end
 	return channel;
 end
