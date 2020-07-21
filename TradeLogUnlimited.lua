@@ -235,7 +235,7 @@ local function SendChat(msg, name)
 	if(channel=="WHISPER")then
 		SendChatMessage(msg,channel,nil,name);
 	else
-		SendChatMessage(msg,channel);
+		SendChatMessage(msg,channel,nil);
 	end
 end
 
@@ -255,6 +255,10 @@ function TradeLogUnlimited_FindAnnounceChannel(channel)
 		else
 			return "SAY";
 		end
+	elseif(channel=="SAY") then
+		return "SAY";
+	elseif(channel=="YELL") then
+		return "YELL";
 	end
 	return channel;
 end
