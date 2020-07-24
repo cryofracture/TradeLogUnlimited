@@ -5,7 +5,7 @@ function TradeLogUnlimitedFrame_OnLoad(self)
 
     TradeLogUnlimited_SetHyperlink_Origin = ItemRefTooltip.SetHyperlink;
     ItemRefTooltip.SetHyperlink = function(self,link)
-        if(strsub(link, 1, 8)=="TradeLogUnlimitedUnlimited") then
+        if(strsub(link, 1, 8)=="TradeLogUnlimited") then
             HideUIPanel(self);
             return;
         end
@@ -15,7 +15,7 @@ function TradeLogUnlimitedFrame_OnLoad(self)
 end
 
 function TradeLogUnlimitedFrame_CreateMinimapButton()
-    local ldb = LibStub("LibDataBroker-1.1"):NewDataObject("TradeLogUnlimitedUnlimited", {
+    local ldb = LibStub("LibDataBroker-1.1"):NewDataObject("TradeLogUnlimited", {
         type = "launcher",
         text = TRADE_LIST_TITLE,
         icon = [[Interface\MINIMAP\TRACKING\Banker]],
@@ -33,21 +33,21 @@ function TradeLogUnlimitedFrame_CreateMinimapButton()
             GameTooltip:Show()
         end,
     })
-    TradeLogUnlimited_TradesHistory.minimapPos = TradeLogUnlimited_TradesHistory.minimapPos or 338
-    LibDBIcon:Register("TradeLogUnlimitedUnlimited", ldb, TradeLogUnlimited_TradesHistory);
-    if ( TradeLogUnlimited_TradesHistory.hideMinimapIcon ) then LibDBIcon:Hide("TradeLogUnlimitedUnlimited") end
+    TradeLog_TradesHistory.minimapPos = TradeLog_TradesHistory.minimapPos or 338
+    LibDBIcon:Register("TradeLog", ldb, TradeLog_TradesHistory);
+    if ( TradeLogUnlimited_TradesHistory.hideMinimapIcon ) then LibDBIcon:Hide("TradeLog") end
 
-    SLASH_TRADELOGUNLIMITEDICON1 = "/TradeLogUnlimited";
-    SlashCmdList["TradeLogUnlimitedICON"] = function(msg)
+    SLASH_TRADELOGUNLIMITEDICON1 = "/tradelog";
+    SlashCmdList["TRADELOG ICON"] = function(msg)
         if  ( msg~="icon" ) then
-            DEFAULT_CHAT_FRAME:AddMessage("Usage: '/TradeLogUnlimited icon' to toggle minimap icon")
+            DEFAULT_CHAT_FRAME:AddMessage("Usage: '/tradelog icon' to toggle minimap icon")
         else
-            TradeLogUnlimited_TradesHistory.hideMinimapIcon = not TradeLogUnlimited_TradesHistory.hideMinimapIcon
-            if ( TradeLogUnlimited_TradesHistory.hideMinimapIcon ) then
-                LibDBIcon:Hide("TradeLogUnlimited")
+            TradeLog_TradesHistory.hideMinimapIcon = not TradeLog_TradesHistory.hideMinimapIcon
+            if ( TradeLog_TradesHistory.hideMinimapIcon ) then
+                LibDBIcon:Hide("TradeLog")
                 DEFAULT_CHAT_FRAME:AddMessage("TradeLogUnlimited minimap icon disabled");
             else
-                LibDBIcon:Show("TradeLogUnlimited")
+                LibDBIcon:Show("TradeLog")
                 DEFAULT_CHAT_FRAME:AddMessage("TradeLogUnlimited minimap icon enabled");
             end
         end
