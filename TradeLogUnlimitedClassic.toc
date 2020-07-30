@@ -14,4 +14,4 @@ localization-ruRU.lua
 TradeLogUnlimited.lua
 RecentTradeFrame.xml
 TradeLogUnlimitedFrame.xml
-TradeLogUnlimitedFrame.xml
+TradeLogUnlimitedFrame.lua
