@@ -1,5 +1,5 @@
 # TradeLogUnlimited
-TradeLog by Cryofracture for 8.3 and beyond
+TradeLog by Cryofracture for 1.13 and beyone
 
 
 https://www.curseforge.com/wow/addons/tradelogunlimited
