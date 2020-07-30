@@ -37,21 +37,22 @@ function TradeLogUnlimitedFrame_CreateMinimapButton()
     LibDBIcon:Register("TradeLogUnlimited", ldb, TradeLogUnlimited_TradesHistory);
     if ( TradeLogUnlimited_TradesHistory.hideMinimapIcon ) then LibDBIcon:Hide("TradeLogUnlimited") end
 
-    SLASH_TRADELOGUNLIMITEDICON1 = "/tradelog";
-    SlashCmdList["TRADELOGICON"] = function(msg)
+    -- SLASH_TRADELOGUNLIMITED1 = '/tradelog';
+    SlashCmdList["TRADELOGUNLIMITED"] = function(msg)
         if  ( msg~="icon" ) then
             DEFAULT_CHAT_FRAME:AddMessage("Usage: '/tradelog icon' to toggle minimap icon")
         else
             TradeLogUnlimited_TradesHistory.hideMinimapIcon = not TradeLogUnlimited_TradesHistory.hideMinimapIcon
             if ( TradeLogUnlimited_TradesHistory.hideMinimapIcon ) then
-                LibDBIcon:Hide("TradeLog")
+                LibDBIcon:Hide("TradeLogUnlimited")
                 DEFAULT_CHAT_FRAME:AddMessage("TradeLogUnlimited minimap icon disabled");
             else
-                LibDBIcon:Show("TradeLog")
+                LibDBIcon:Show("TradeLogUnlimited")
                 DEFAULT_CHAT_FRAME:AddMessage("TradeLogUnlimited minimap icon enabled");
             end
         end
     end
+    SLASH_TRADELOGUNLIMITED1 = '/tradelog';
 end
 
 

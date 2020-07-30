@@ -4,10 +4,12 @@
 ## Notes: Recent trades, trade history, announcing trades of items and gold.
 ## SavedVariablesPerCharacter: TradeLogUnlimited_TradesHistory, TradeLogUnlimited_Announce_Checked, TradeLogUnlimited_AnnounceChannel
 
+Libs\libs.xml
 Libs\LibDBIcon-1.0.xml
 Libs\LibDataBroker-1.1
 Libs\LibStub
 Libs\LibDBIcon-1.0.lua
+Libs\CallbackHandler-1.0
 
 localization-enUS.lua
 localization-zhCN.lua
@@ -18,3 +20,4 @@ TradeLogUnlimited.lua
 RecentTradeFrame.xml
 RecentTradeFrame.lua
 TradeLogUnlimitedFrame.xml
+TradeLogUnlimitedFrameFrame.lua
