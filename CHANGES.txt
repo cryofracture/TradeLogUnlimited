@@ -1,4 +1,35 @@
-commit 5c234d46a718413e3904cc2a891e056ca08740aa (HEAD -> master)
+commit 40026f6ff27ae95c690739aea321eb04f61ff75f
+Merge: cc871e6 9e27ed5
+Author: Cryofracture <thecryoforce@gmail.com>
+Date:   Thu Jul 30 02:29:35 2020 -0500
+
+    Merge branch 'master' of github.com:cryofracture/TradeLogUnlimited
+
+commit cc871e6893a2ac5e45d1d1328920b446dd21d240
+Author: Cryofracture <thecryoforce@gmail.com>
+Date:   Thu Jul 30 02:29:18 2020 -0500
+
+    Update TOC and saved vars
+
+commit 9e27ed549900a43a4681e1630278698f0c03ccb3
+Author: Cryofracture <thecryoforce@gmail.com>
+Date:   Thu Jul 23 19:25:27 2020 -0500
+
+    Russian localization added with thanks to Hubbotu!
+
+commit b4975f88b5e2bb4c0486203460676917c5f1c246
+Author: Cryofracture <thecryoforce@gmail.com>
+Date:   Mon Jul 20 23:35:58 2020 -0500
+
+    Minor text fixes (thanks Niantic)
+
+commit 96a8904e8e541252e3ae009e5f4051eb2f42cfe5
+Author: Cryofracture <thecryoforce@gmail.com>
+Date:   Wed Jun 3 21:18:09 2020 -0500
+
+    Updated Global Vars again
+
+commit 5c234d46a718413e3904cc2a891e056ca08740aa
 Author: Cryofracture <thecryoforce@gmail.com>
 Date:   Wed Jun 3 18:21:52 2020 -0500
 
